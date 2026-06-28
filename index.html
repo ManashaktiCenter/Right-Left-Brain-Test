@@ -1,4 +1,4 @@
-
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -749,92 +749,92 @@ function showResult(){
     `;
 
     // Destroy previous chart
-    if(window.myChart){
+   setTimeout(() => {
+
+    if (window.myChart) {
         window.myChart.destroy();
     }
 
-    // Create Doughnut Chart
-    const ctx = document.getElementById("chart");
+    const canvas = document.getElementById("chart");
 
-    window.myChart = new Chart(ctx,{
-        type:"doughnut",
+    if (!canvas) return;
 
-        data:{
-            labels:["Left Brain","Right Brain"],
-            datasets:[{
-                data:[totalA,totalB],
-                backgroundColor:[
-                    "#4F46E5",
-                    "#10B981"
-                ],
-                borderColor:"#FFFFFF",
-                borderWidth:3,
-                hoverOffset:15
+    const ctx = canvas.getContext("2d");
+
+    window.myChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Left Brain", "Right Brain"],
+            datasets: [{
+                data: [totalA, totalB],
+                backgroundColor: ["#4F46E5", "#10B981"],
+                borderColor: "#FFFFFF",
+                borderWidth: 3,
+                hoverOffset: 15
             }]
         },
-
-        options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            cutout:"70%",
-
-            plugins:{
-                legend:{
-                    position:"bottom",
-                    labels:{
-                        font:{
-                            size:14,
-                            weight:"bold"
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "70%",
+            animation: {
+                animateRotate: true,
+                duration: 800
+            },
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        font: {
+                            size: 14,
+                            weight: "bold"
                         }
                     }
                 }
             }
         }
-
     });
+
+}, 200);
 
     // Save to Google Sheet
     saveResultToSheet(brain, description);
 
 }
- 
-function saveResultToSheet(brain, description){
+async function saveResultToSheet(brain, description) {
 
-let data = {
-    name:userName,
-    score:score,
-    result:brain,
-    description:description,
-    optionA:totalA,
-    optionB:totalB
-};
+  let data = {
+    name: userName,
+    score: score,
+    result: brain,
+    description: description,
+    optionA: totalA,
+    optionB: totalB
+  };
 
-answers.forEach((ans,i)=>{
-
-    let selectedText="";
-
-    if(ans=="A"){
-        selectedText="A - "+questions[i][0].replace(/<br>/g," ");
+  answers.forEach((ans, i) => {
+    if (ans == "A") {
+      data["Q" + (i + 1)] = "A - " + questions[i][0].replace(/<br>/g, " ");
+    } else if (ans == "B") {
+      data["Q" + (i + 1)] = "B - " + questions[i][1].replace(/<br>/g, " ");
     }
-    else if(ans=="B"){
-        selectedText="B - "+questions[i][1].replace(/<br>/g," ");
-    }
+  });
 
-    data["Q"+(i+1)] = selectedText;
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(data)
+    });
 
-});
+    const text = await res.text();
+    console.log("Sheet Response:", text);
 
-fetch(SCRIPT_URL,{
-    method:"POST",
-    headers:{
-        "Content-Type":"application/json"
-    },
-    body:JSON.stringify(data)
-})
-.then(r=>r.text())
-.then(console.log)
-.catch(console.error);
-
+  } catch (err) {
+    console.warn("Sheet save failed, but test continues:", err);
+  }
 }
 </script>
 
