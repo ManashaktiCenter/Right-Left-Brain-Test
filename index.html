@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Brain Test</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:#F5F7FB;
+    color:#1F2937;
+    padding:30px;
+    text-align:center;
+}
+
+.page{
+    display:none;
+    max-width:800px;
+    margin:30px auto;
+    background:#fff;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    animation:fadeIn .4s ease;
+}
+
+.active{
+    display:block;
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(25px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+h1{
+    font-size:34px;
+    color:#111827;
+    margin-bottom:10px;
+}
+
+h2{
+    font-size:28px;
+    color:#374151;
+    margin-bottom:20px;
+}
+
+h3{
+    color:#6B7280;
+    margin-bottom:20px;
+    font-weight:500;
+}
+
+input{
+    width:90%;
+    max-width:450px;
+    padding:15px;
+    border:2px solid #E5E7EB;
+    border-radius:12px;
+    font-size:16px;
+    margin-top:20px;
+    outline:none;
+    transition:.25s;
+}
+
+input:focus{
+    border-color:#4F46E5;
+    box-shadow:0 0 0 4px rgba(79,70,229,.12);
+}
+
+button{
+    margin:15px 8px;
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+    background:#4F46E5;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 10px 25px rgba(79,70,229,.25);
+}
+
+button:hover{
+    background:#4338CA;
+    transform:translateY(-2px);
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+.progress-container{
+
+    width:100%;
+    height:14px;
+    background:#E5E7EB;
+    border-radius:100px;
+    overflow:hidden;
+    margin:30px 0 10px;
+
+}
+
+.progress-bar{
+
+    width:0%;
+    height:100%;
+    border-radius:100px;
+    background:linear-gradient(90deg,#4F46E5,#06B6D4);
+    transition:width .4s ease;
+
+}
+
+.progress-text{
+
+    color:#6B7280;
+    font-weight:600;
+    margin-bottom:20px;
+
+}
+
+.question-box{
+
+    animation:slideIn .3s ease;
+
+}
+
+@keyframes slideIn{
+
+from{
+opacity:0;
+transform:translateX(25px);
+}
+
+to{
+opacity:1;
+transform:translateX(0);
+}
+
+}
+
+.option-card{
+
+    width:100%;
+    margin:18px auto;
+    padding:22px;
+    border:2px solid #E5E7EB;
+    border-radius:18px;
+    background:#fff;
+    cursor:pointer;
+    transition:.25s;
+    text-align:left;
+    font-size:18px;
+    line-height:1.7;
+    box-shadow:0 4px 15px rgba(0,0,0,.04);
+
+}
+
+.option-card:hover{
+
+    transform:translateY(-4px);
+    border-color:#4F46E5;
+    box-shadow:0 15px 35px rgba(79,70,229,.15);
+
+}
+
+.selected{
+
+    background:#EEF2FF;
+    border:3px solid #4F46E5;
+    box-shadow:0 15px 35px rgba(79,70,229,.25);
+
+}
+
+#qTitle{
+
+    font-size:26px;
+    margin-bottom:20px;
+    color:#111827;
+
+}
+
+.question-box p{
+
+    color:#6B7280;
+    font-size:18px;
+    margin-bottom:20px;
+
+}
+
+#finalResult{
+
+    font-size:34px;
+    font-weight:bold;
+    color:#4F46E5;
+    margin-bottom:20px;
+
+}
+
+#score{
+
+    font-size:22px;
+    color:#374151;
+    margin-bottom:30px;
+    line-height:1.8;
+
+}
+
+#certificate{
+
+    background:#fff;
+    border:3px solid #4F46E5;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(79,70,229,.12);
+
+}
+
+#chart{
+    width:420px !important;
+    height:420px !important;
+    max-width:100%;
+    margin:30px auto;
+    display:block;
+}
+
+@media(max-width:768px){
+
+body{
+
+padding:15px;
+
+}
+
+.page{
+
+padding:20px;
+margin:15px auto;
+
+}
+
+h1{
+
+font-size:28px;
+
+}
+
+h2{
+
+font-size:22px;
+
+}
+
+.option-card{
+
+font-size:16px;
+padding:18px;
+
+}
+
+button{
+
+width:100%;
+
+}
+
+input{
+
+width:100%;
+
+}
+
+}
+</style>
+</head>
+
+<body>
+  <h1>Right and Left Brain Questionaire<br>
+उजवा मेंदू - डावा मेंदू प्रश्नावली</h1>
+<h3> खालील प्रसंगात तुम्ही कसे वागाल? ते निवडा. सर्व प्रश्न सोडवा.<br>
+How will you behave in the following situations? Choose that. Solve all questions.
+ </h3>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+
+<div style="text-align:center;">
+
+<h1 style="font-size:40px;color:#4F46E5;">
+🧠 Brain Dominance Assessment
+</h1>
+
+<p style="font-size:20px;margin-top:15px;color:#6B7280;">
+Discover whether your thinking style is more
+<strong>Left Brain</strong>,
+<strong>Right Brain</strong>,
+or
+<strong>Balanced.</strong>
+</p>
+
+<div style="
+max-width:520px;
+margin:35px auto;
+background:#F9FAFB;
+padding:25px;
+border-radius:20px;
+border:2px solid #E5E7EB;
+text-align:left;
+line-height:2;
+">
+
+<h3 style="margin-bottom:15px;color:#111827;">
+Assessment Details
+</h3>
+
+<p>⏱ Duration : <strong>3 – 4 Minutes</strong></p>
+
+<p>📝 Questions : <strong>21</strong></p>
+
+<p>✅ No Right or Wrong Answers</p>
+
+<p>🎯 Choose the option that describes you best.</p>
+
+</div>
+
+<button onclick="nextPage(2)"
+style="padding:18px 45px;font-size:18px;">
+Start Assessment →
+</button>
+
+</div>
+
+</div>
+<!-- PAGE 2 Instructions -->
+<div id="page2" class="page">
+
+<h1 style="color:#4F46E5;">
+📋 Assessment Instructions
+</h1>
+
+<div style="
+max-width:650px;
+margin:30px auto;
+background:#F9FAFB;
+padding:30px;
+border-radius:20px;
+text-align:left;
+line-height:2;
+border:2px solid #E5E7EB;
+">
+
+<h3 style="margin-bottom:20px;">Please Read Carefully</h3>
+
+<p>✅ Answer honestly.</p>
+
+<p>✅ Don't spend too much time on any question.</p>
+
+<p>✅ There are no right or wrong answers.</p>
+
+<p>✅ Choose the option that feels most natural.</p>
+
+<p>✅ Complete all 21 questions.</p>
+
+<p>✅ Your responses remain confidential.</p>
+
+</div>
+
+<button onclick="nextPage(3)">
+Continue →
+</button>
+
+</div>
+
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+<h2>Enter Your Name  / पूर्ण नाव लिहा</h2>
+<input type="text" id="username" placeholder="Enter your name">
+<br>
+<button onclick="startTest()">Start Test</button>
+</div>
+
+<!-- PAGE 4 -->
+<div id="page4" class="page">
+<h2 id="qTitle"></h2>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+<div class="progress-text" id="progressText"></div>
+
+<div class="question-box">
+<p>Choose one option:</p>
+
+<div class="option-card" onclick="selectOption('A')" id="cardA">
+  <span id="optA"></span>
+</div>
+
+<div class="option-card" onclick="selectOption('B')" id="cardB">
+  <span id="optB"></span>
+</div>
+</div>
+
+<div style="margin-top:20px;">
+
+<button onclick="previousQuestion()" id="backBtn">
+⬅ Back
+</button>
+
+</div>
+</div>
+
+ 
+<!-- PAGE 5 -->
+<div id="page5" class="page">
+
+<div id="certificate">
+
+<h1>  Right Brain • Left Brain Analysis</h1>
+
+<hr style="margin:20px 0;">
+
+<h2 id="userNameResult"></h2>
+
+<h1 id="finalResult"></h1>
+
+<div style="margin:25px 0;">
+
+<div style="font-size:28px;font-weight:bold;color:#4F46E5;">
+Score : <span id="scoreValue"></span> / 21
+</div>
+
+</div>
+
+<div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin:30px 0;">
+
+<div style="background:#EEF2FF;padding:20px;border-radius:15px;min-width:180px;">
+<h3>🅰 Left Brain</h3>
+<h2 id="leftCount">0</h2>
+</div>
+
+<div style="background:#ECFDF5;padding:20px;border-radius:15px;min-width:180px;">
+<h3>🅱 Right Brain</h3>
+<h2 id="rightCount">0</h2>
+</div>
+
+</div>
+
+<canvas id="chart"></canvas>
+
+<div id="analysisBox"
+style="
+margin-top:35px;
+padding:25px;
+background:#F9FAFB;
+border-radius:15px;
+text-align:left;
+line-height:2;
+font-size:18px;">
+</div>
+
+<br>
+
+<button onclick="location.reload()">
+🔄 Take Test Again
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxxbioXPZHz-89hE39kMYmA4KygNwXoY-C0XSWb7k_gdBOxEH4HeB6T6Fhii2UP1QX/exec";
+ const questions = [
+  ["It is fun to taking risks.<br> मला धोका पत्करायला आवडतो..", "I have fun without taking risks.<br> मला धोका पत्करायला आवडत नाही."],
+  ["I look for new ways to do old jobs.<br>मला जुनी कामं नवीन पद्धतीने करायला आवडतात.", "When one way works well, i don't change it .<br>जर एका पद्धतीने कामं होत असेल तर मी ती पद्धत बदलत नाही"],
+  ["I begin many jobs that i never finish.<br>माझी बरीचशी कामं पूर्ण होत नाहीत.", "I finish a job before starting a new one.<br>नवीन काम सुरु करण्याआधी आधीचे काम मी पूर्ण करतो."],
+  ["I am not very imaginative in my work.<br>मी माझ्या कामात फारसा कल्पक नाही.", "I use my imagination in everything I do.<br>मी प्रत्येक गोष्टीत माझी कल्पनाशक्ती वापरतो."],
+  ["I can analyze what is going to happen next.<br>पुढे काय होणार आहे याचे मी विश्लेषण करु शकतो.", "I can sense what is going to happen next.<br>पुढे काय होणार हे मला जाणवत असतं / अंदाजं बांधू शकतो."],
+  ["I try to find the one best way to solve a problem.<br>मी एखादा प्रश्न किंवा समस्या सोडवण्याचा उत्तम मार्ग शोधण्याचा प्रयत्न करतो.", "I try to find different answers to problem.<br>मी समस्येची वेगवेगळी उत्तरे शोधण्याचा प्रयत्न करतो."],
+  ["My thinking is like pictures going through my head.<br>मी चित्ररुपाने विचार करतो.", "My thinking is like words going through my head.<br>मी शाब्दिक विचार करतो."],
+  ["I agree with new ideas before other people do.<br>मी इतर लोकांच्या आधी नवीन संकल्पना मान्य करतो.", "I question new ideas more than other people do.<br>इतर लोकांपेक्षा मी नवीन संकल्पनांबाबत प्रश्न किंवा शंका उपस्थित करतो/करते."],
+  ["Other people don't understand how I organize things.<br>माझ्या कामातील सुसूत्रता लोकांना दिसत नाही.", "Other people think I organize well.<br>माझ्या कामातील सुसूत्रपणा दिसून येते"],
+  ["I have good self-discipline.<br>मी स्वयंशिस्तीचा आहे.", "I usually act on my feelings.<br>मी भावनेनुसार वागतो."],
+  ["I plan time for doing my work.<br>मी माझ्या कामाच्या वेळेचे नियोजन करतो.", "I don't think about the time when I work.<br>मी काम करताना वेळेचा विचार करत नाही."],
+  ["With a hard decision , I choose what I know is right.<br>कठीण निर्णय घेताना, मी जे बरोबर आहे असे मला माहित असते, ते निवडतो.", "With a hard decision , I choose what I feel is right.<br>कठीण निर्णय घेताना मी जे माझ्या मनाला / भावनेला पटतं ते निवडतो."],
+  ["I do easy thing first and important things later.<br>मी सोप्या गोष्टी आधी आणि महत्वाच्या गोष्टी नंतर करतो.", "I do the important things first and easy thing later.<br>मी महत्वाच्या गोष्टी प्रथम करतो आणि सोप्या गोष्टी नंतर करतो."],
+  ["Sometimes in a new situation, I have too many ideas.<br>नवीन परिस्थितीत काही वेळेस मला खूप कल्पना सुचतात.", "Sometimes in a new situation, I don't have any ideas.<br>नवीन परिस्थितीत काही वेळेस मला कल्पना सुचत नाही."],
+  ["I have to have a lot of change and variety in my life.<br>मला आयुष्यात बदल आणि विविधता हवी असते", "I have to have an orderly and well-planned life.<br>मला नियमबद्ध आणि नियोजनबद्ध आयुष्यच आवडते."],
+  ["I know I am right , because I have good reasons.<br>मी बरोबर आहे, हे मला माहित असतं. कारण त्याचे कारणं मला माहित असतं.", "I know I am right even without good reasons.<br>कारण माहित नसले तरी मी बरोबर आहे हे मला माहित असतं"],
+  ["I spread my work evenly over the time I have.<br>माझे काम मी माझ्या वेळेत विभागून घेतो.", "I prefer to do my work at the last minute.<br>मी शेवटच्या मिनिटाला काम करण्यास प्राधान्य देतो."],
+  ["I keep everything in particular place.<br>मी प्रत्येक गोष्ट एका ठराविक ठिकाणी ठेवतो.", "Where I keep things depends on what I am doing.<br>मी काय करतो आहे यावर मी वस्तू कुठे ठेवतो हे अवलंबून असते."],
+  ["I have to make my own plans.<br>मी माझ्या योजना स्वतः करतो.", "I can follow anyone's plans.<br>मी कोणाच्याही योजनेप्रमाणे काम करु शकतो."],
+  ["I am very flexible and unpredictable person.<br>मी लवचिक व बेभरवशाचा आहे.", "I am a consistent and stable person.<br>मी स्थिर आणि गुणवत्तेत सातत्य राखणारा आहे."],
+  ["With a new task, I want to find my own way of doing it.<br>नवीन काम मी माझ्या पद्धतीने करतो.","With a new task, I want to be told the best way to do it.<br>नवीन काम कोणत्या उत्तम तऱ्हेने करायचे ते मला सांगावं लागतं."]
+
+];
+let index=0;
+let totalA=0;
+let totalB=0;
+let lockAnswer = false;
+let selectedAnswer="";
+let userName="";
+let score=0;
+
+// Stores answer of every question
+let answers=new Array(questions.length).fill("");
+
+function nextPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+}
+
+function startTest(){
+  userName=document.getElementById("username").value;
+  if(userName==""){ alert("Enter name"); return; }
+  index=0; totalA=0; totalB=0;
+  score=0;
+answers = new Array(questions.length).fill("");
+  nextPage(4);
+  loadQuestion();
+}
+ 
+
+function selectOption(val){
+
+    // Prevent double clicking
+    if(lockAnswer) return;
+
+    lockAnswer = true;
+
+    selectedAnswer = val;
+    answers[index] = val;
+
+    document.getElementById("cardA").classList.remove("selected");
+    document.getElementById("cardB").classList.remove("selected");
+
+    document.getElementById("card" + val).classList.add("selected");
+
+    setTimeout(function () {
+
+        lockAnswer = false;
+        nextQuestion();
+
+    }, 250);
+
+}
+
+
+
+
+
+function loadQuestion(){
+
+    document.getElementById("qTitle").innerText =
+    "Question " + (index + 1) + " / " + questions.length;
+
+    document.getElementById("optA").innerHTML = questions[index][0];
+    document.getElementById("optB").innerHTML = questions[index][1];
+
+    document.getElementById("cardA").classList.remove("selected");
+    document.getElementById("cardB").classList.remove("selected");
+
+    // Show previous answer
+    if(answers[index] == "A")
+        document.getElementById("cardA").classList.add("selected");
+
+    if(answers[index] == "B")
+        document.getElementById("cardB").classList.add("selected");
+
+    selectedAnswer = answers[index];
+
+    lockAnswer = false;
+
+    // Progress Bar
+    const progress = Math.round(((index + 1) / questions.length) * 100);
+
+    document.getElementById("progressBar").style.width = progress + "%";
+
+    document.getElementById("progressText").innerHTML =
+    "Question " + (index + 1) + " of " + questions.length +
+    " (" + progress + "%)";
+
+    document.getElementById("backBtn").style.display =
+    index == 0 ? "none" : "inline-block";
+
+}
+
+function nextQuestion(){
+
+    if(selectedAnswer=="") return;
+
+    index++;
+
+    if(index<questions.length){
+
+        loadQuestion();
+
+    }
+
+    else{
+
+        calculateResult();
+
+    }
+
+}
+function previousQuestion(){
+
+    if(index>0){
+
+        index--;
+
+        loadQuestion();
+
+    }
+
+}
+
+function calculateResult(){
+
+    totalA=0;
+    totalB=0;
+    score=0;
+    
+
+    const scoreA=[1,2,3,7,8,9,13,14,15,19,20,21];
+    const scoreB=[4,5,6,10,11,12,16,17,18];
+
+    answers.forEach(function(ans,i){
+
+        if(ans=="A") totalA++;
+        if(ans=="B") totalB++;
+
+        let q=i+1;
+
+        if(scoreA.includes(q) && ans=="A")
+            score++;
+
+        if(scoreB.includes(q) && ans=="B")
+            score++;
+
+    });
+
+    showResult();
+
+}
+function showResult(){
+
+    nextPage(5);
+
+    let brain = "";
+    let description = "";
+
+    // Calculate percentages
+    const leftPercent = Math.round((totalA / questions.length) * 100);
+    const rightPercent = Math.round((totalB / questions.length) * 100);
+
+    // Decide Result
+    if(score >= 0 && score <= 4){
+
+        brain = "Strong Left Brain";
+        description = "अति प्रबळ डावा मेंदू";
+
+    }
+    else if(score >= 5 && score <= 8){
+
+        brain = "Moderate Left Brain";
+        description = "प्रबळ डावा मेंदू";
+
+    }
+    else if(score >= 9 && score <= 13){
+
+        brain = "Middle Brain";
+        description = "समतोल डावा व उजवा मेंदू";
+
+    }
+    else if(score >= 14 && score <= 16){
+
+        brain = "Moderate Right Brain";
+        description = "प्रबळ उजवा मेंदू";
+
+    }
+    else{
+
+        brain = "Strong Right Brain";
+        description = "अति प्रबळ उजवा मेंदू";
+
+    }
+
+    // Fill Result Page
+    document.getElementById("userNameResult").innerText = userName;
+
+    document.getElementById("finalResult").innerText = brain;
+
+    document.getElementById("scoreValue").innerText = score;
+
+    document.getElementById("leftCount").innerHTML =
+        totalA + "<br><small>" + leftPercent + "%</small>";
+
+    document.getElementById("rightCount").innerHTML =
+        totalB + "<br><small>" + rightPercent + "%</small>";
+
+    // Analysis Box
+    document.getElementById("analysisBox").innerHTML = `
+        <h2 style="color:#4F46E5;">Brain Analysis</h2>
+
+        <p style="margin-top:15px;">
+            <strong>Result</strong><br>
+            ${brain}
+        </p>
+
+        <p style="margin-top:20px;">
+            <strong>Meaning</strong><br>
+            ${description}
+        </p>
+
+        <hr style="margin:20px 0;">
+
+        <p>
+            <strong>Left Brain :</strong> ${leftPercent}%<br>
+            <strong>Right Brain :</strong> ${rightPercent}%
+        </p>
+    `;
+
+    // Destroy previous chart
+    if(window.myChart){
+        window.myChart.destroy();
+    }
+
+    // Create Doughnut Chart
+    const ctx = document.getElementById("chart");
+
+    window.myChart = new Chart(ctx,{
+        type:"doughnut",
+
+        data:{
+            labels:["Left Brain","Right Brain"],
+            datasets:[{
+                data:[totalA,totalB],
+                backgroundColor:[
+                    "#4F46E5",
+                    "#10B981"
+                ],
+                borderColor:"#FFFFFF",
+                borderWidth:3,
+                hoverOffset:15
+            }]
+        },
+
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            cutout:"70%",
+
+            plugins:{
+                legend:{
+                    position:"bottom",
+                    labels:{
+                        font:{
+                            size:14,
+                            weight:"bold"
+                        }
+                    }
+                }
+            }
+        }
+
+    });
+
+    // Save to Google Sheet
+    saveResultToSheet(brain, description);
+
+}
+ 
+function saveResultToSheet(brain, description){
+
+let data = {
+    name:userName,
+    score:score,
+    result:brain,
+    description:description,
+    optionA:totalA,
+    optionB:totalB
+};
+
+answers.forEach((ans,i)=>{
+
+    let selectedText="";
+
+    if(ans=="A"){
+        selectedText="A - "+questions[i][0].replace(/<br>/g," ");
+    }
+    else if(ans=="B"){
+        selectedText="B - "+questions[i][1].replace(/<br>/g," ");
+    }
+
+    data["Q"+(i+1)] = selectedText;
+
+});
+
+fetch(SCRIPT_URL,{
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json"
+    },
+    body:JSON.stringify(data)
+})
+.then(r=>r.text())
+.then(console.log)
+.catch(console.error);
+
+}
+</script>
+
+</body>
+</html>
