@@ -749,42 +749,35 @@ function showResult(){
     // Create Doughnut Chart
     const ctx = document.getElementById("chart");
 
-    window.myChart = new Chart(ctx,{
-        type:"doughnut",
+   setTimeout(() => {
+    const ctx = document.getElementById("chart");
 
-        data:{
-            labels:["Left Brain","Right Brain"],
-            datasets:[{
-                data:[totalA,totalB],
-                backgroundColor:[
-                    "#4F46E5",
-                    "#10B981"
-                ],
-                borderColor:"#FFFFFF",
-                borderWidth:3,
-                hoverOffset:15
+    window.myChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Left Brain", "Right Brain"],
+            datasets: [{
+                data: [totalA, totalB],
+                backgroundColor: ["#4F46E5", "#10B981"],
+                borderColor: "#FFFFFF",
+                borderWidth: 3,
+                hoverOffset: 15
             }]
         },
-
-        options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            cutout:"70%",
-
-            plugins:{
-                legend:{
-                    position:"bottom",
-                    labels:{
-                        font:{
-                            size:14,
-                            weight:"bold"
-                        }
-                    }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "70%",
+            plugins: {
+                legend: {
+                    position: "bottom"
                 }
             }
         }
-
     });
+
+}, 300);
+    
 
     // Save to Google Sheet
     saveResultToSheet(brain, description);
