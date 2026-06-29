@@ -1,4 +1,4 @@
-  
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,12 +71,15 @@ input{
     width:90%;
     max-width:450px;
     padding:15px;
-    border:2px solid #E5E7EB;
+    border:2px solid #b199c2;
     border-radius:12px;
     font-size:16px;
     margin-top:20px;
     outline:none;
     transition:.25s;
+  
+
+    
 }
 
 input:focus{
@@ -298,41 +301,33 @@ width:100%;
 
 <body>
  <div>
-
-    <h1 style="font-size:28px;color:#0e0c0d;">
-WELCOME TO MANASHAKTI <br>
-</h1>
+ 
  
 
 <!-- PAGE 1 -->
 <div id="page1" class="page active">
-
+  <h1 style="font-size:28px;color:#4d0482;">
+WELCOME TO MANASHAKTI <br>
+</h1>
 <div style="text-align:center;">
 
  
- <h1>Right and Left Brain Questionaire<br></h1>
-<h4>उजवा मेंदू - डावा मेंदू प्रश्नावली</h4>
+ <h4>Right and Left Brain Questionaire  उजवा मेंदू - डावा मेंदू प्रश्नावली</h4>
   
-<p style="font-size:20px;margin-top:15px;color:#6B7280;">
-Discover whether your thinking style is more
-<strong>Left Brain</strong>,
-<strong>Right Brain</strong>,
-or
-<strong>Balanced.</strong>
-</p>
+ 
 
 <div style="
-max-width:520px;
+max-width:650px;
 margin:35px auto;
 background:#F9FAFB;
 padding:25px;
 border-radius:20px;
-border:2px solid #E5E7EB;
+border:2px solid #b199c2;
 text-align:left;
 line-height:2;
 ">
 
-<h3 style="margin-bottom:15px;color:#111827;">
+<h3 style="margin-bottom:10px;color:#111827;">
 Assessment Details
 </h3>
 
@@ -357,7 +352,7 @@ Start →
 <!-- PAGE 2 Instructions -->
 <div id="page2" class="page">
 
-<h1 style="color:#312035;">
+<h1 style="color:#4d0482;">
 📋 Assessment Instructions
 </h1>
 
@@ -369,7 +364,7 @@ padding:30px;
 border-radius:20px;
 text-align:left;
 line-height:2;
-border:2px solid #E5E7EB;
+border:2px solid #b199c2;
 ">
 
 <h3 style="margin-bottom:20px;">Please Read Carefully</h3>
@@ -397,7 +392,11 @@ Continue →
 
 <!-- PAGE 3 -->
 <div id="page3" class="page">
-<h4>Personal Details - वैयक्तिक माहिती</h4>
+<h1 style="font-size:28px;color:#4d0482;">Personal Details - वैयक्तिक माहिती</h1>
+
+ 
+
+
 <input type="text" id="username" placeholder="Enter your name" required>
 <input
     type="tel"
@@ -809,54 +808,83 @@ function showResult(){
         </p>
     `;
 
-    // Destroy previous chart
-   setTimeout(() => {
+    setTimeout(() => {
 
     if (window.myChart) {
         window.myChart.destroy();
     }
 
     const canvas = document.getElementById("chart");
-
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
 
-    window.myChart = new Chart(ctx, {
-        type: "doughnut",
-        data: {
-            labels: ["Left Brain", "Right Brain"],
-            datasets: [{
-                data: [totalA, totalB],
-                backgroundColor: ["#635eb5", "#6aab95"],
-                borderColor: "#FFFFFF",
-                borderWidth: 3,
-                hoverOffset: 15
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "70%",
-            animation: {
-                animateRotate: true,
-                duration: 800
+    const brainImage = new Image();
+    brainImage.src = "brain.png";   // Put brain.png beside index.html
+
+    const centerImagePlugin = {
+        id: "centerImage",
+        afterDraw(chart) {
+
+            if (!brainImage.complete) return;
+
+            const { ctx } = chart;
+            const meta = chart.getDatasetMeta(0);
+
+            const x = meta.data[0].x;
+            const y = meta.data[0].y;
+
+            const size = 90;
+
+            ctx.drawImage(
+                brainImage,
+                x - size / 2,
+                y - size / 2,
+                size,
+                size
+            );
+        }
+    };
+
+    brainImage.onload = () => {
+
+        window.myChart = new Chart(ctx, {
+
+            type: "doughnut",
+
+            data: {
+                labels: ["Left Brain", "Right Brain"],
+                datasets: [{
+                    data: [totalA, totalB],
+                    backgroundColor: [
+                        "#635eb5",
+                        "#6aab95"
+                    ],
+                    borderColor: "#ffffff",
+                    borderWidth: 3
+                }]
             },
-            plugins: {
-                legend: {
-                    position: "bottom",
-                    labels: {
-                        font: {
-                            size: 14,
-                            weight: "bold"
-                        }
+
+            plugins: [centerImagePlugin],
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: "70%",
+                plugins: {
+                    legend: {
+                        position: "bottom"
                     }
                 }
             }
-        }
-    });
+
+        });
+
+    };
 
 }, 200);
+
+ 
 
     // Save to Google Sheet
     saveResultToSheet(brain, description);
