@@ -50,7 +50,7 @@ transform:translateY(0);
 }
 
 h1{
-    font-size:34px;
+    font-size:30px;
     color:#111827;
     margin-bottom:10px;
 }
@@ -80,7 +80,7 @@ input{
 }
 
 input:focus{
-    border-color:#4F46E5;
+    border-color:#8b868bc5;
     box-shadow:0 0 0 4px rgba(79,70,229,.12);
 }
 
@@ -89,8 +89,8 @@ button{
     padding:14px 35px;
     border:none;
     border-radius:50px;
-    background:#4F46E5;
-    color:#fff;
+    background:#6b029c;
+    color:#fcfcfc;
     font-size:16px;
     font-weight:600;
     cursor:pointer;
@@ -99,7 +99,7 @@ button{
 }
 
 button:hover{
-    background:#4338CA;
+    background:#6b029c;
     transform:translateY(-2px);
 }
 
@@ -123,7 +123,7 @@ button:active{
     width:0%;
     height:100%;
     border-radius:100px;
-    background:linear-gradient(90deg,#4F46E5,#06B6D4);
+    background:linear-gradient(90deg,#6b029c,#38025c);
     transition:width .4s ease;
 
 }
@@ -176,7 +176,7 @@ transform:translateX(0);
 .option-card:hover{
 
     transform:translateY(-4px);
-    border-color:#4F46E5;
+    border-color:#6b029c;
     box-shadow:0 15px 35px rgba(79,70,229,.15);
 
 }
@@ -184,7 +184,7 @@ transform:translateX(0);
 .selected{
 
     background:#EEF2FF;
-    border:3px solid #4F46E5;
+    border:3px solid #6b029c;
     box-shadow:0 15px 35px rgba(79,70,229,.25);
 
 }
@@ -193,7 +193,7 @@ transform:translateX(0);
 
     font-size:26px;
     margin-bottom:20px;
-    color:#111827;
+    color:#04060a;
 
 }
 
@@ -209,7 +209,7 @@ transform:translateX(0);
 
     font-size:34px;
     font-weight:bold;
-    color:#4F46E5;
+    color:#12011a;
     margin-bottom:20px;
 
 }
@@ -226,7 +226,7 @@ transform:translateX(0);
 #certificate{
 
     background:#fff;
-    border:3px solid #4F46E5;
+    border:3px solid #6b029c;
     border-radius:20px;
     padding:35px;
     box-shadow:0 15px 40px rgba(79,70,229,.12);
@@ -297,21 +297,22 @@ width:100%;
 </head>
 
 <body>
-  <h1>Right and Left Brain Questionaire<br>
-उजवा मेंदू - डावा मेंदू प्रश्नावली</h1>
-<h3> खालील प्रसंगात तुम्ही कसे वागाल? ते निवडा. सर्व प्रश्न सोडवा.<br>
-How will you behave in the following situations? Choose that. Solve all questions.
- </h3>
+ <div>
+
+    <h1 style="font-size:28px;color:#0e0c0d;">
+WELCOME TO MANASHAKTI <br>
+</h1>
+ 
 
 <!-- PAGE 1 -->
 <div id="page1" class="page active">
 
 <div style="text-align:center;">
 
-<h1 style="font-size:40px;color:#4F46E5;">
-🧠 Brain Dominance Assessment
-</h1>
-
+ 
+ <h1>Right and Left Brain Questionaire<br></h1>
+<h4>उजवा मेंदू - डावा मेंदू प्रश्नावली</h4>
+  
 <p style="font-size:20px;margin-top:15px;color:#6B7280;">
 Discover whether your thinking style is more
 <strong>Left Brain</strong>,
@@ -347,16 +348,16 @@ Assessment Details
 
 <button onclick="nextPage(2)"
 style="padding:18px 45px;font-size:18px;">
-Start Assessment →
+Start →
 </button>
 
 </div>
-
+</div>
 </div>
 <!-- PAGE 2 Instructions -->
 <div id="page2" class="page">
 
-<h1 style="color:#4F46E5;">
+<h1 style="color:#312035;">
 📋 Assessment Instructions
 </h1>
 
@@ -396,8 +397,18 @@ Continue →
 
 <!-- PAGE 3 -->
 <div id="page3" class="page">
-<h2>Enter Your Name  / पूर्ण नाव लिहा</h2>
-<input type="text" id="username" placeholder="Enter your name">
+<h4>Personal Details - वैयक्तिक माहिती</h4>
+<input type="text" id="username" placeholder="Enter your name" required>
+<input
+    type="tel"
+    id="phone"
+    placeholder="Enter 10-digit Mobile Number"
+    maxlength="10"
+    inputmode="numeric"
+    pattern="[6-9][0-9]{9}"
+    required>
+<input type="text" id="email" placeholder="Enter Email Id" required>
+<input type="text" id="city" placeholder="Enter your City" required>
 <br>
 <button onclick="startTest()">Start Test</button>
 </div>
@@ -405,14 +416,17 @@ Continue →
 <!-- PAGE 4 -->
 <div id="page4" class="page">
 <h2 id="qTitle"></h2>
-
+   <h3> खालील प्रसंगात तुम्ही कसे वागाल? ते निवडा. सर्व प्रश्न सोडवा.<br>
+How will you behave in the following situations? Choose that. Solve all questions.
+ </h3>
 <div class="progress-container">
   <div class="progress-bar" id="progressBar"></div>
 </div>
 <div class="progress-text" id="progressText"></div>
 
 <div class="question-box">
-<p>Choose one option:</p>
+  
+ 
 
 <div class="option-card" onclick="selectOption('A')" id="cardA">
   <span id="optA"></span>
@@ -431,7 +445,7 @@ Continue →
 
 </div>
 </div>
-
+ 
  
 <!-- PAGE 5 -->
 <div id="page5" class="page">
@@ -448,27 +462,28 @@ Continue →
 
 <div style="margin:25px 0;">
 
-<div style="font-size:28px;font-weight:bold;color:#4F46E5;">
+<div style="font-size:28px;font-weight:bold;color:#6b41b9;">
 Score : <span id="scoreValue"></span> / 21
 </div>
 
 </div>
 
 <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin:30px 0;">
-
-<div style="background:#EEF2FF;padding:20px;border-radius:15px;min-width:180px;">
-<h3>🅰 Left Brain</h3>
-<h2 id="leftCount">0</h2>
-</div>
-
-<div style="background:#ECFDF5;padding:20px;border-radius:15px;min-width:180px;">
-<h3>🅱 Right Brain</h3>
+ <div style="background:#a9e0c6;padding:20px;border-radius:15px;min-width:180px;">
+<h3> Right Brain</h3>
 <h2 id="rightCount">0</h2>
 </div>
 
+<div style="background:#afb9dd;padding:20px;border-radius:15px;min-width:180px;">
+<h3> Left Brain</h3>
+<h2 id="leftCount">0</h2>
 </div>
 
-<div class="chart-wrapper">
+ 
+
+</div>
+
+<div class="chart-wrapper" >
     <canvas id="chart"></canvas>
 </div>
 
@@ -535,15 +550,61 @@ function nextPage(n){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page'+n).classList.add('active');
 }
-
 function startTest(){
-  userName=document.getElementById("username").value;
-  if(userName==""){ alert("Enter name"); return; }
-  index=0; totalA=0; totalB=0;
-  score=0;
-answers = new Array(questions.length).fill("");
-  nextPage(4);
-  loadQuestion();
+
+    const name = document.getElementById("username").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const city = document.getElementById("city").value.trim();
+
+    // Name Validation
+    if(name === ""){
+        alert("Please enter your name.");
+        return;
+    }
+
+    // Phone Validation
+    if(phone === ""){
+        alert("Please enter your phone number.");
+        return;
+    }
+
+    // Only 10 digits allowed
+    if(!/^[6-9]\d{9}$/.test(phone)){
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    // Email Validation
+    if(email === ""){
+        alert("Please enter your email.");
+        return;
+    }
+
+    // Email format validation
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    // City Validation
+    if(city === ""){
+        alert("Please enter your city.");
+        return;
+    }
+
+    userName = name;
+
+    index = 0;
+    totalA = 0;
+    totalB = 0;
+    score = 0;
+
+    answers = new Array(questions.length).fill("");
+
+    nextPage(4);
+    loadQuestion();
+
 }
  
 
@@ -767,7 +828,7 @@ function showResult(){
             labels: ["Left Brain", "Right Brain"],
             datasets: [{
                 data: [totalA, totalB],
-                backgroundColor: ["#4F46E5", "#10B981"],
+                backgroundColor: ["#635eb5", "#6aab95"],
                 borderColor: "#FFFFFF",
                 borderWidth: 3,
                 hoverOffset: 15
@@ -803,38 +864,69 @@ function showResult(){
 }
 async function saveResultToSheet(brain, description) {
 
-  let data = {
-    name: userName,
-    score: score,
-    result: brain,
-    description: description,
-    optionA: totalA,
-    optionB: totalB
-  };
+    let data = {
 
-  answers.forEach((ans, i) => {
-    if (ans == "A") {
-      data["Q" + (i + 1)] = "A - " + questions[i][0].replace(/<br>/g, " ");
-    } else if (ans == "B") {
-      data["Q" + (i + 1)] = "B - " + questions[i][1].replace(/<br>/g, " ");
-    }
-  });
+        name: document.getElementById("username").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        city: document.getElementById("city").value.trim(),
 
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-      body: JSON.stringify(data)
+        score: score,
+        result: brain,
+        description: description,
+
+        leftBrain: totalA,
+        rightBrain: totalB
+
+    };
+
+    // Store full selected answer text
+    answers.forEach((ans, i) => {
+
+        if(ans==="A"){
+
+            data["Q"+(i+1)]="A - "+questions[i][0].replace(/<br>/g," ");
+
+        }
+        else if(ans==="B"){
+
+            data["Q"+(i+1)]="B - "+questions[i][1].replace(/<br>/g," ");
+
+        }
+        else{
+
+            data["Q"+(i+1)]="";
+
+        }
+
     });
 
-    const text = await res.text();
-    console.log("Sheet Response:", text);
+    try{
 
-  } catch (err) {
-    console.warn("Sheet save failed, but test continues:", err);
-  }
+        const response=await fetch(SCRIPT_URL,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify(data)
+
+        });
+
+        const result=await response.text();
+
+        console.log(result);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
 }
 </script>
 
