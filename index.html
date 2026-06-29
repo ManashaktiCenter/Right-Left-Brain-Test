@@ -1,4 +1,4 @@
-   
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,15 +71,12 @@ input{
     width:90%;
     max-width:450px;
     padding:15px;
-    border:2px solid #b199c2;
+    border:2px solid #E5E7EB;
     border-radius:12px;
     font-size:16px;
     margin-top:20px;
     outline:none;
     transition:.25s;
-  
-
-    
 }
 
 input:focus{
@@ -301,33 +298,41 @@ width:100%;
 
 <body>
  <div>
- 
+
+    <h1 style="font-size:28px;color:#0e0c0d;">
+WELCOME TO MANASHAKTI <br>
+</h1>
  
 
 <!-- PAGE 1 -->
 <div id="page1" class="page active">
-  <h1 style="font-size:28px;color:#4d0482;">
-WELCOME TO MANASHAKTI <br>
-</h1>
+
 <div style="text-align:center;">
 
  
- <h4>Right and Left Brain Questionaire  उजवा मेंदू - डावा मेंदू प्रश्नावली</h4>
+ <h1>Right and Left Brain Questionaire<br></h1>
+<h4>उजवा मेंदू - डावा मेंदू प्रश्नावली</h4>
   
- 
+<p style="font-size:20px;margin-top:15px;color:#6B7280;">
+Discover whether your thinking style is more
+<strong>Left Brain</strong>,
+<strong>Right Brain</strong>,
+or
+<strong>Balanced.</strong>
+</p>
 
 <div style="
-max-width:650px;
+max-width:520px;
 margin:35px auto;
 background:#F9FAFB;
 padding:25px;
 border-radius:20px;
-border:2px solid #b199c2;
+border:2px solid #E5E7EB;
 text-align:left;
 line-height:2;
 ">
 
-<h3 style="margin-bottom:10px;color:#111827;">
+<h3 style="margin-bottom:15px;color:#111827;">
 Assessment Details
 </h3>
 
@@ -352,7 +357,7 @@ Start →
 <!-- PAGE 2 Instructions -->
 <div id="page2" class="page">
 
-<h1 style="color:#4d0482;">
+<h1 style="color:#312035;">
 📋 Assessment Instructions
 </h1>
 
@@ -364,7 +369,7 @@ padding:30px;
 border-radius:20px;
 text-align:left;
 line-height:2;
-border:2px solid #b199c2;
+border:2px solid #E5E7EB;
 ">
 
 <h3 style="margin-bottom:20px;">Please Read Carefully</h3>
@@ -392,11 +397,7 @@ Continue →
 
 <!-- PAGE 3 -->
 <div id="page3" class="page">
-<h1 style="font-size:28px;color:#4d0482;">Personal Details - वैयक्तिक माहिती</h1>
-
- 
-
-
+<h4>Personal Details - वैयक्तिक माहिती</h4>
 <input type="text" id="username" placeholder="Enter your name" required>
 <input
     type="tel"
@@ -800,9 +801,12 @@ function showResult(){
             ${description}
         </p>
 
-         <hr style="margin:20px 0;">
+        <hr style="margin:20px 0;">
 
-         
+        <p>
+            <strong>Left Brain :</strong> ${leftPercent}%<br>
+            <strong>Right Brain :</strong> ${rightPercent}%
+        </p>
     `;
 
     // Destroy previous chart
