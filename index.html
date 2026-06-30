@@ -451,22 +451,23 @@ How will you behave in the following situations? Choose that. Solve all question
 
 <div id="certificate">
 
-<h1>  Right Brain • Left Brain Analysis</h1>
+<h1>🧠 YOUR BRAIN TYPE</h1>
 
 <hr style="margin:20px 0;">
 
 <h2 id="userNameResult"></h2>
 
-<h1 id="finalResult"></h1>
+<div id="finalResultCard">
+    <div class="result-title"> </div>
+    <div id="finalResult"></div>
+</div>
 
 <div style="margin:25px 0;">
 
-<div style="font-size:28px;font-weight:bold;color:#6b41b9;">
-Score : <span id="scoreValue"></span> / 21
-</div>
+ 
 
 </div>
-
+<!--
 <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin:30px 0;">
  <div style="background:#a9e0c6;padding:20px;border-radius:15px;min-width:180px;">
 <h3> Right Brain</h3>
@@ -477,14 +478,10 @@ Score : <span id="scoreValue"></span> / 21
 <h3> Left Brain</h3>
 <h2 id="leftCount">0</h2>
 </div>
-
  
-
 </div>
-
-<div class="chart-wrapper" >
-    <canvas id="chart"></canvas>
-</div>
+-->
+ 
 
 <div id="analysisBox"
 style="
@@ -744,47 +741,175 @@ function showResult(){
     // Decide Result
     if(score >= 0 && score <= 4){
 
-        brain = "Strong Left Brain";
-        description = "अति प्रबळ डावा मेंदू";
+        brain = "Strong Left Brain - अति प्रबळ डावा मेंदू";
+       description = `<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+<div style="background:#F3E8FF;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">📊</div>
+<b>Facts & Logic</b><br>
+<small>तथ्य, आकडे आणि पुरावे</small>
+</div>
+
+<div style="background:#DBEAFE;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">✍️</div>
+<b>Language Skills</b><br>
+<small>लेखन व संवाद</small>
+</div>
+
+<div style="background:#DCFCE7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">📅</div>
+<b>Planning & Discipline</b><br>
+<small>नियम व शिस्त</small>
+</div>
+
+<div style="background:#FEF3C7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🔍</div>
+<b>Detail Focus</b><br>
+<small>बारकाईने निरीक्षण</small>
+</div>
+
+</div>
+`;
 
     }
     else if(score >= 5 && score <= 8){
 
-        brain = "Moderate Left Brain";
-        description = "प्रबळ डावा मेंदू";
+        brain = "Moderate Left Brain - प्रबळ डावा मेंदू";
+        description = `
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+<div style="background:#EEF2FF;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">⚖️</div>
+<b>Logic + Intuition</b><br>
+<small>तर्क + अंतर्ज्ञान</small>
+</div>
+
+<div style="background:#DBEAFE;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">📝</div>
+<b>Creative Writing</b><br>
+<small>अचूक व कल्पक लेखन</small>
+</div>
+
+<div style="background:#DCFCE7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">📆</div>
+<b>Flexible Planning</b><br>
+<small>नियोजन पण बदल स्वीकारतो</small>
+</div>
+
+<div style="background:#FEF3C7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">👀</div>
+<b>Balanced Vision</b><br>
+<small>तपशील + मोठे चित्र</small>
+</div>
+
+</div>
+ `;
 
     }
     else if(score >= 9 && score <= 13){
 
-        brain = "Middle Brain";
-        description = "समतोल डावा व उजवा मेंदू";
+        brain = "Middle Brain - समतोल डावा व उजवा मेंदू";
+        description = `
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+<div style="background:#F3E8FF;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🧠</div>
+<b>Logic + Creativity</b><br>
+<small>तर्क + कल्पकता</small>
+</div>
+
+<div style="background:#DBEAFE;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">❤️</div>
+<b>Facts + Emotions</b><br>
+<small>माहिती + भावना</small>
+</div>
+
+<div style="background:#DCFCE7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🌍</div>
+<b>Adaptability</b><br>
+<small>शिस्त व बदल दोन्ही</small>
+</div>
+
+<div style="background:#FEF3C7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🔗</div>
+<b>Big Picture Thinking</b><br>
+<small>मोठी संकल्पना जोडणे</small>
+</div>
+
+</div>`;
 
     }
     else if(score >= 14 && score <= 16){
 
-        brain = "Moderate Right Brain";
-        description = "प्रबळ उजवा मेंदू";
+        brain = "Moderate Right Brain - प्रबळ उजवा मेंदू";
+        description = `
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+<div style="background:#F3E8FF;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🧠</div>
+<b>Logic + Creativity</b><br>
+<small>तर्क + कल्पकता</small>
+</div>
+
+<div style="background:#DBEAFE;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">❤️</div>
+<b>Facts + Emotions</b><br>
+<small>माहिती + भावना</small>
+</div>
+
+<div style="background:#DCFCE7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🌍</div>
+<b>Adaptability</b><br>
+<small>शिस्त व बदल दोन्ही</small>
+</div>
+
+<div style="background:#FEF3C7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🔗</div>
+<b>Big Picture Thinking</b><br>
+<small>मोठी संकल्पना जोडणे</small>
+</div>
+
+</div> `;
 
     }
     else{
 
-        brain = "Strong Right Brain";
-        description = "अति प्रबळ उजवा मेंदू";
+        brain = "Strong Right Brain - अति प्रबळ उजवा मेंदू";
+        description = `
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+<div style="background:#F3E8FF;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🎨</div>
+<b>Imagination</b><br>
+<small>कल्पकता</small>
+</div>
+
+<div style="background:#DBEAFE;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">💖</div>
+<b>Feelings & Visuals</b><br>
+<small>भावना व दृश्य विचार</small>
+</div>
+
+<div style="background:#DCFCE7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🦋</div>
+<b>Freedom</b><br>
+<small>पूर्ण स्वातंत्र्य</small>
+</div>
+
+<div style="background:#FEF3C7;padding:18px;border-radius:15px;text-align:center;">
+<div style="font-size:40px;">🚀</div>
+<b>Visionary</b><br>
+<small>अंतिम ध्येय प्रथम</small>
+</div>
+
+</div>`;
 
     }
 
     // Fill Result Page
     document.getElementById("userNameResult").innerText = userName;
-
-    document.getElementById("finalResult").innerText = brain;
-
-    document.getElementById("scoreValue").innerText = score;
-
-    document.getElementById("leftCount").innerHTML =
-        totalA + "<br><small>" + leftPercent + "%</small>";
-
-    document.getElementById("rightCount").innerHTML =
-        totalB + "<br><small>" + rightPercent + "%</small>";
+ 
+  
 
     // Analysis Box
     document.getElementById("analysisBox").innerHTML = `
@@ -802,49 +927,10 @@ function showResult(){
 
         <hr style="margin:20px 0;">
 
-        <p>
-            <strong>Left Brain :</strong> ${leftPercent}%<br>
-            <strong>Right Brain :</strong> ${rightPercent}%
-        </p>
+        
     `;
 
-    setTimeout(() => {
-
-    if (window.myChart) {
-        window.myChart.destroy();
-    }
-
-    const ctx = document.getElementById("chart").getContext("2d");
-
-    window.myChart = new Chart(ctx, {
-        type: "doughnut",
-        data: {
-            labels: ["Left Brain", "Right Brain"],
-            datasets: [{
-                data: [totalA, totalB],
-                backgroundColor: [
-                    "#635eb5",
-                    "#6aab95"
-                ],
-                borderColor: "#ffffff",
-                borderWidth: 3
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "70%",
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            }
-        }
-    });
-
-}, 200);
-       
-
+     
  
 
     // Save to Google Sheet
