@@ -692,7 +692,7 @@ function previousQuestion(){
     if(index>0){
 
         index--;
-
+        selectedAnswer = answers[index];
         loadQuestion();
 
     }
@@ -734,9 +734,7 @@ function showResult(){
     let brain = "";
     let description = "";
 
-    // Calculate percentages
-    const leftPercent = Math.round((totalA / questions.length) * 100);
-    const rightPercent = Math.round((totalB / questions.length) * 100);
+   
 
     // Decide Result
     if(score >= 0 && score <= 4){
