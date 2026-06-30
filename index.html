@@ -814,75 +814,36 @@ function showResult(){
         window.myChart.destroy();
     }
 
-    const canvas = document.getElementById("chart");
-    if (!canvas) return;
+    const ctx = document.getElementById("chart").getContext("2d");
 
-    const ctx = canvas.getContext("2d");
-
-    const brainImage = new Image();
-    brainImage.src = "brain.png";   // Put brain.png beside index.html
-
-    const centerImagePlugin = {
-        id: "centerImage",
-        afterDraw(chart) {
-
-            if (!brainImage.complete) return;
-
-            const { ctx } = chart;
-            const meta = chart.getDatasetMeta(0);
-
-            const x = meta.data[0].x;
-            const y = meta.data[0].y;
-
-            const size = 90;
-
-            ctx.drawImage(
-                brainImage,
-                x - size / 2,
-                y - size / 2,
-                size,
-                size
-            );
-        }
-    };
-
-    brainImage.onload = () => {
-
-        window.myChart = new Chart(ctx, {
-
-            type: "doughnut",
-
-            data: {
-                labels: ["Left Brain", "Right Brain"],
-                datasets: [{
-                    data: [totalA, totalB],
-                    backgroundColor: [
-                        "#635eb5",
-                        "#6aab95"
-                    ],
-                    borderColor: "#ffffff",
-                    borderWidth: 3
-                }]
-            },
-
-            plugins: [centerImagePlugin],
-
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: "70%",
-                plugins: {
-                    legend: {
-                        position: "bottom"
-                    }
+    window.myChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Left Brain", "Right Brain"],
+            datasets: [{
+                data: [totalA, totalB],
+                backgroundColor: [
+                    "#635eb5",
+                    "#6aab95"
+                ],
+                borderColor: "#ffffff",
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "70%",
+            plugins: {
+                legend: {
+                    position: "bottom"
                 }
             }
-
-        });
-
-    };
+        }
+    });
 
 }, 200);
+       
 
  
 
